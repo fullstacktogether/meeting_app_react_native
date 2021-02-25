@@ -11,9 +11,9 @@ function startStack() {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                <Stack.Screen name="Loading" component={LoadingScreen} />
-                <Stack.Screen name="HomeTabStack" component={HomeTabStack} />
-                <Stack.Screen name="Register" component={Register} />
+                <Stack.Screen name="Loading" component={LoadingScreen} options={{headerShown:false}}  />
+                <Stack.Screen name="HomeTabStack" component={HomeTabStack} options={{headerShown:false}} />
+                <Stack.Screen name="Register" component={Register} options={{headerShown:false}}  />
             </Stack.Navigator>
         </NavigationContainer>
     )
