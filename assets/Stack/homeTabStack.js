@@ -5,7 +5,6 @@ import ProfileScreen from "../Screen/profile"
 import SettingsScreen from "../Screen/settings"
 import ExploreScreen from "../Screen/explore"
 import AddEventScreen from "../Screen/addEvent"
-import { View } from 'react-native';
 const Tab = createMaterialBottomTabNavigator();
 
 function homeTabStack() {
@@ -14,8 +13,9 @@ function homeTabStack() {
             <Tab.Screen name="HomeStack" component={HomeStack} />
             <Tab.Screen name="Explore" component={ExploreScreen} />
             <Tab.Screen name="AddEvent" component={AddEventScreen} />
-            <Tab.Screen name="Profile" component={ProfileScreen} />
             <Tab.Screen name="Settings" component={SettingsScreen} />
+            <Tab.Screen name="Profile" component={ProfileScreen} />
+            
             
         </Tab.Navigator>
     )

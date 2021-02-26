@@ -5,7 +5,7 @@ function loading(props) {
     const [token,setToken]=useState(null)
     useEffect(() => {
         const timer = setTimeout(() => {
-            setToken("exp");
+            setToken(0);
           }, 3000);
           return () => clearTimeout(timer);    
     },[]);
