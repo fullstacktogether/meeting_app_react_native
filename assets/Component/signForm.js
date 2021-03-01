@@ -3,7 +3,7 @@ import { Text, View,StyleSheet, Pressable } from 'react-native'
 import { BlurView } from 'expo-blur';
 import { TextInput } from 'react-native-gesture-handler';
 
-function loginForm() {
+function signForm() {
     return (
         <BlurView intensity={100} style={styles.continer}>
         <View>
@@ -15,15 +15,19 @@ function loginForm() {
             <TextInput/>
         </View>
         <View>
+            <Text>Password again</Text>
+            <TextInput/>
+        </View>
+        <View>
             <Pressable>
-                <Text>Login</Text>
+                <Text>Signup</Text>
             </Pressable>
         </View>
       </BlurView>
     )
 }
 
-export default loginForm
+export default signForm
 const styles = StyleSheet.create({
     continer:{
         width:"75%",

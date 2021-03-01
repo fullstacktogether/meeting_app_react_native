@@ -1,7 +1,10 @@
-import React from 'react'
-import { Text, View, StyleSheet, StatusBar, ImageBackground, Image } from 'react-native'
+import React, {useState} from 'react'
+import { Text, View, StyleSheet, StatusBar, ImageBackground, Image, Pressable } from 'react-native'
 import LoginForm from "../Component/loginForm"
+import SignForm from "../Component/signForm"
+
 function register() {
+    const [login, setlogin] = useState(true)
     return (
         <View style={styles.conteiner} >
             <ImageBackground style={styles.conteiner2} blurRadius={3} source={require("../Background/register_background2.jpg")} style={styles.imgBackground}>
@@ -10,7 +13,15 @@ function register() {
                         <Image style={{width:"25%",resizeMode:"center"}} source={require("../Icons/instagram.png")} />
                     </View>
                     <View style={styles.formConteiner}>
-                        <LoginForm></LoginForm>
+                        <View style={styles.formChoose}>
+                            <Pressable onPress={()=>setlogin(true)}>
+                                <Text>Login</Text>
+                            </Pressable>
+                            <Pressable onPress={()=>setlogin(false)}>
+                                <Text>Signup</Text>
+                            </Pressable>
+                        </View>
+                        {login ? <LoginForm></LoginForm> : <SignForm></SignForm>}
                     </View>
                 </View>
             </ImageBackground>
@@ -39,5 +50,10 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent:"center",
         alignItems:"center"
+    },
+    formChoose:{
+        flexDirection:"row",
+        position: "absolute",
+        top:0
     }
 });
