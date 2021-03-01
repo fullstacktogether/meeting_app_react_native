@@ -10,8 +10,8 @@ function loading(props) {
           return () => clearTimeout(timer);    
     },[]);
     useEffect(() => {
-         if(token==0) props.navigation.navigate("Register")
-         if(token) props.navigation.navigate("HomeTabStack")
+         if(token==0) props.navigation.replace("Register")
+         if(token) props.navigation.replace("HomeTabStack")
     },[token]);
     return (
         <View>

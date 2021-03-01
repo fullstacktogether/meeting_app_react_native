@@ -1,9 +1,9 @@
 import React from 'react'
-import { Text, View,StyleSheet, Pressable } from 'react-native'
+import { Text, View,StyleSheet, Pressable,TextInput } from 'react-native'
 import { BlurView } from 'expo-blur';
-import { TextInput } from 'react-native-gesture-handler';
 
-function signForm() {
+
+function signForm(props) {
     return (
         <BlurView intensity={100} style={styles.continer}>
         <View>
@@ -19,7 +19,7 @@ function signForm() {
             <TextInput/>
         </View>
         <View>
-            <Pressable>
+            <Pressable onPress={()=>props.navigation.replace("RegisterDetail") } >
                 <Text>Signup</Text>
             </Pressable>
         </View>

@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, StatusBar, ImageBackground, Image, Pressable } 
 import LoginForm from "../Component/loginForm"
 import SignForm from "../Component/signForm"
 
-function register() {
+function register(props) {
     const [login, setlogin] = useState(true)
     return (
         <View style={styles.conteiner} >
@@ -21,7 +21,7 @@ function register() {
                                 <Text>Signup</Text>
                             </Pressable>
                         </View>
-                        {login ? <LoginForm></LoginForm> : <SignForm></SignForm>}
+                        {login ? <LoginForm></LoginForm> : <SignForm navigation={props.navigation} ></SignForm>}
                     </View>
                 </View>
             </ImageBackground>
