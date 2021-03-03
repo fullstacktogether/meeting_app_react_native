@@ -7,7 +7,7 @@ const windowHeight = Dimensions.get('window').height;
 function header() {
     return (
         <View style={styles.conteiner}>
-            <View style={styles.logoConteiner}>
+            <View>
                 <Image style={styles.logo}  source={require("../Icons/instagram.png")}   />
             </View>
             <View>
