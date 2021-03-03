@@ -10,11 +10,11 @@ const Tab = createMaterialBottomTabNavigator();
 function homeTabStack() {
     return (
         <Tab.Navigator>
-            <Tab.Screen name="HomeStack" component={HomeStack} />
-            <Tab.Screen name="Explore" component={ExploreScreen} />
+            <Tab.Screen name="HomeStack" component={HomeStack} options={{tabBarColor:"#ffffff"}} />
+            <Tab.Screen name="Explore" component={ExploreScreen} options={{tabBarColor:"#000000"}} />
             <Tab.Screen name="AddEvent" component={AddEventScreen} />
             <Tab.Screen name="Settings" component={SettingsScreen} />
-            <Tab.Screen name="Profile" component={ProfileScreen} />
+            <Tab.Screen name="Profile" component={ProfileScreen} options={{tabBarColor:"#b95d8d"}} />
             
             
         </Tab.Navigator>

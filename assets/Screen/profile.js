@@ -1,16 +1,19 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Text, View,StyleSheet, Image, StatusBar } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import Event from "../Component/event";
 
 function profile() {
+    
+    
     return (
-        <View style={styles.conteiner}>
+        <View style={[styles.conteiner]}>
             <View style={styles.header}>
                 <Image style={styles.logo}  source={require("../Icons/instagram.png")} />
                 <Text style={styles.headerText}>My Profile</Text>
                 <Image style={styles.logo}  source={require("../Icons/instagram.png")} />
             </View>
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false} >
                 <View style={styles.welcomeConteiner}>
                     <Text style={styles.welcomeText}>Welcome back!</Text>
                     <Text style={styles.usernameText}>Social Machine</Text>
@@ -34,9 +37,12 @@ function profile() {
                         </View>
                     </View>
                     <Text style={styles.eventText}>My Events</Text>
+                    <View style={styles.eventConteiner}>
+                        <Event/>
+                    </View>
                 </View>
             </ScrollView>
-            <StatusBar backgroundColor="purple" barStyle="light-content"/>
+            
         </View>
     );
 }
@@ -45,7 +51,7 @@ export default profile;
 const styles = StyleSheet.create({
     conteiner:{
         flex:1,
-        backgroundColor:"purple",
+        backgroundColor:"#b95d8d",
         
     },
     logo:{
@@ -55,7 +61,7 @@ const styles = StyleSheet.create({
     },
     header:{
         height:60,
-        backgroundColor:"purple",
+        backgroundColor:"#b95d8d",
         flexDirection:"row",
         alignItems:"center",
         paddingHorizontal:20,
@@ -68,7 +74,7 @@ const styles = StyleSheet.create({
         letterSpacing:0.5
     },
     welcomeConteiner:{
-        height:250,
+        height:220,
         justifyContent:"space-evenly",
         paddingHorizontal:20
     },
@@ -86,7 +92,7 @@ const styles = StyleSheet.create({
         backgroundColor:"#fff",
         borderTopLeftRadius:25,
         borderTopRightRadius:25,
-        height:500
+        
     },
     profilePic:{
         height:"100%",
@@ -136,9 +142,18 @@ const styles = StyleSheet.create({
         marginTop:3
     },
     eventText:{
-        fontSize:16,
+        fontSize:18,
         fontWeight:"bold",
         position:"absolute",
+        top:220,
+        left:20
+        
+    },
+    eventConteiner:{
+        marginBottom:50,
+        width:"100%",
+        marginTop:300,
+        alignItems:"center",
         
     }
 });
