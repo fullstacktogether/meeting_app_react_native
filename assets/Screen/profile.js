@@ -51,7 +51,7 @@ export default profile;
 const styles = StyleSheet.create({
     conteiner:{
         flex:1,
-        backgroundColor:"#b95d8d",
+        backgroundColor:"#000000",
         
     },
     logo:{
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     },
     header:{
         height:60,
-        backgroundColor:"#b95d8d",
+        backgroundColor:"#000000",
         flexDirection:"row",
         alignItems:"center",
         paddingHorizontal:20,

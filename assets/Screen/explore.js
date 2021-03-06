@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { Text, View, StatusBar,StyleSheet } from 'react-native';
 import MapView from "react-native-maps"
 
+
 function explore() {
     
     return (
