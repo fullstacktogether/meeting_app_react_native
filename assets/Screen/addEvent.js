@@ -1,11 +1,13 @@
 import React, {useState,useRef} from 'react'
 import { Text, View, StyleSheet, StatusBar, Pressable,Image,TextInput,Animated, ScrollView,Modal } from 'react-native'
+import { Dimensions } from 'react-native';
 import * as ImagePicker from 'expo-image-picker'
 import * as ImageManipulator from 'expo-image-manipulator';
 import { Ionicons } from '@expo/vector-icons';
 import {Picker} from '@react-native-picker/picker';
 import MapView, {Marker} from 'react-native-maps';
-
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 function addEvent(props) {
     const[image,setImage]=useState(null)
     const[publicity,setPublicity] = useState(true)
@@ -20,7 +22,7 @@ function addEvent(props) {
 
 
 
-    const bottomValue = useRef(new Animated.Value(-300)).current
+    const bottomValue = useRef(new Animated.Value(-(windowHeight/2))).current
     const bottomUp = () => {
         Animated.timing(bottomValue, {
           toValue: 0,
@@ -30,13 +32,12 @@ function addEvent(props) {
       };
       const bottomDown = () => {
         Animated.timing(bottomValue, {
-          toValue: -300,
+          toValue: -(windowHeight/2),
           duration: 500,
           useNativeDriver:false
         }).start();
       };
-    const confirm = () => {
-    }
+    
 
     const openImagePickerAsync = async () => {
         const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -78,7 +79,12 @@ function addEvent(props) {
         )
         setImage(manipulated)
     }
-    
+    const createEvent = () => {
+        setModal(false)
+        setImage(null)
+        bottomDown()
+        props.navigation.navigate("Profile")
+    }
     
     return (
         <View style={styles.conteiner} >
@@ -153,14 +159,14 @@ function addEvent(props) {
                 <View style={styles.bottomPrivacy}>
                     <Ionicons name="location" size={26} color="black" />
                     <Text style={styles.optionsLabel}>Location</Text>
-                    <Pressable onPress={()=>setModal(true)} style={[styles.publicityButton,{marginLeft:10}]}>
+                    <Pressable onPress={()=>setModal(true)} style={[styles.publicityButton,{marginLeft:20}]}>
                         <Text>Set Location</Text>
                     </Pressable>
                 </View>
                 <View style={[styles.bottomPrivacy,{marginBottom:20,justifyContent:"center"}]}>
                     
-                    <Pressable style={[styles.publicityButton,{width:"100%",alignItems:"center"}]}>
-                        <Text>Create Event</Text>
+                    <Pressable style={[styles.publicityButton,{width:"100%",alignItems:"center",height:50}]}>
+                        <Text style={{fontSize:18,fontWeight:"bold"}}>Create Event</Text>
                     </Pressable>
                 </View>
                 </ScrollView>
@@ -170,25 +176,19 @@ function addEvent(props) {
                 transparent={true}
                 visible={modal}
                 onRequestClose={() => {
-                setModalVisible(!modal);
+                setModal(!modal);
                 }}
             >
                 <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                    <Text>Set Location</Text>
-                    <Pressable
-                    onPress={() => setModal(!modal)}
-                    >
-                    <Text>Hide Modal</Text>
-                    </Pressable>
                     <MapView  style={styles.map}>
                         <Marker draggable
                             coordinate={location}
                             onDragEnd={(e) => setLocation(e.nativeEvent.coordinate)}
                         />
-                        <Text>
-                            {location.latitude}
-                        </Text>
+                        <View style={{position:"absolute",bottom:10,right:10}} >
+                            <Ionicons onPress={()=>createEvent()} name="navigate-circle" size={75} color="#000" />
+                        </View>
                     </MapView>
                 </View>
                 </View>
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
         width:48
     },
     headText:{
-        fontSize:20,
+        fontSize:22,
         fontWeight:"bold",
         marginTop:15,
         letterSpacing:0.5
@@ -279,7 +279,7 @@ const styles = StyleSheet.create({
         alignItems:"center"
     },
     bottomSheet:{
-        height:300,
+        height:"50%",
         backgroundColor:"#fff",
         width:"100%",
         position:"absolute",
@@ -293,9 +293,10 @@ const styles = StyleSheet.create({
     bottomTop:{
         width:"100%",
         alignItems:"center",
+        marginTop:10
     },
     bottomPrivacy:{
-        marginTop:20,
+        marginTop:30,
         flexDirection:"row",
         alignItems:"center"
     },
@@ -332,12 +333,25 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        elevation: 5,
+        elevation: 10,
         overflow:"hidden"
       },
       map:{
           height:"100%",
           width:"100%",
           
+      },
+      mapButton:{
+          position:"absolute",
+          bottom:20,
+          right: 20,
+          elevation:5,
+          height:60,
+          width:60,
+          borderRadius:30,
+          backgroundColor:"#ffffff",
+          justifyContent:"center",
+          alignItems:"center",
+           
       }
 });
