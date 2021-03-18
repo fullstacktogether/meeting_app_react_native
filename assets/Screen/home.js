@@ -1,8 +1,13 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { SafeAreaView, Text, View, StatusBar, StyleSheet, Pressable } from 'react-native';
 import Header from "../Component/header"
 import Event from "../Component/event"
-function home() {
+import { connect } from 'react-redux'
+
+function home(props) {
+    useEffect(() => {
+        console.log(props)
+    })
     return (
        <SafeAreaView style={[styles.conteiner]}>
            <Header/>
@@ -22,8 +27,13 @@ function home() {
        </SafeAreaView>
     );
 }
+const mapStateToProps = (state) => {
+    return {
+      store: state,
+    }
+}
+export default connect(mapStateToProps)(home)
 
-export default home;
 const styles = StyleSheet.create({
     conteiner:{
         flex:1,
