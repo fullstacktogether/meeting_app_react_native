@@ -2,8 +2,20 @@ import React, { useEffect } from "react";
 import { Text, View, StyleSheet, Image, StatusBar } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Event from "../Component/event";
+import {connect} from "react-redux"
+import { useState } from "react";
+function profile(props) {
+    const[user,setUser]=useState({})
+    const[event,setEvent]=useState(0)
+    const[followers,setFollowers]=useState(0)
+    const[following,setFollowing]=useState(0)
+    useEffect(()=>{
+        setUser(props.store.userBasic.user)
+        setEvent(props.store.userBasic.user.eventsID.length)
+        setFollowers(props.store.userBasic.user.followers.length)
+        setFollowing(props.store.userBasic.user.following.length)
 
-function profile() {
+    },[])
     return (
         <View style={[styles.conteiner]}>
             <View style={styles.header}>
@@ -20,7 +32,7 @@ function profile() {
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.welcomeConteiner}>
                     <Text style={styles.welcomeText}>Welcome back!</Text>
-                    <Text style={styles.usernameText}>Social Machine</Text>
+                    <Text style={styles.usernameText}>{user.username} </Text>
                 </View>
                 <View style={styles.profileConteiner}>
                     <View style={styles.profileConteiner2}>
@@ -31,15 +43,15 @@ function profile() {
                     </View>
                     <View style={styles.followCardsConteiner}>
                         <View style={styles.followCards}>
-                            <Text style={styles.cardText1}>25</Text>
+                            <Text style={styles.cardText1}>{event}</Text>
                             <Text style={styles.cardText2}>Events</Text>
                         </View>
                         <View style={styles.followCards}>
-                            <Text style={styles.cardText1}>175</Text>
+                            <Text style={styles.cardText1}>{followers}</Text>
                             <Text style={styles.cardText2}>Followers</Text>
                         </View>
                         <View style={styles.followCards}>
-                            <Text style={styles.cardText1}>225</Text>
+                            <Text style={styles.cardText1}>{following}</Text>
                             <Text style={styles.cardText2}>Followings</Text>
                         </View>
                     </View>
@@ -52,8 +64,12 @@ function profile() {
         </View>
     );
 }
-
-export default profile;
+const mapStateToProps = (state) => {
+    return {
+        store: state,
+    };
+};
+export default connect(mapStateToProps)(profile);
 const styles = StyleSheet.create({
     conteiner: {
         flex: 1,

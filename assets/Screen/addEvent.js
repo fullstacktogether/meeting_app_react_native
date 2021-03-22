@@ -17,6 +17,8 @@ import * as ImageManipulator from "expo-image-manipulator";
 import { Ionicons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 import MapView, { Marker } from "react-native-maps";
+import { connect } from "react-redux";
+
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 function addEvent(props) {
@@ -25,6 +27,7 @@ function addEvent(props) {
     const [carStatus, setCarSatus] = useState(true);
     const [location, setLocation] = useState({ latitude: 22, longitude: 33 });
     const [participants, setParticipants] = useState(1);
+    const [subject, setSubject] = useState();
     const [modal, setModal] = useState(false);
     const numbers = [1, 2, 3, 4, 5, 10, 20, 30, 40, 50, 100, 500, 1000];
     const pickerItems = numbers.map((number) => (
@@ -96,10 +99,33 @@ function addEvent(props) {
         setImage(manipulated);
     };
     const createEvent = () => {
-        setModal(false);
-        setImage(null);
-        bottomDown();
-        props.navigation.navigate("Profile");
+        
+        fetch("http://192.168.1.106:3000/api/events", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${props.store.auth.token}`
+            },
+            body: JSON.stringify({
+                ispublic: publicity,
+                name: subject,
+                nop: participants,
+                car: carStatus,
+                location:location
+            }),
+        })
+            .then((res) => res.json())
+            .then((res)=>console.log(res))
+            .catch((e) => console.log(e))
+            .done();
+        
+        
+        
+        
+        // setModal(false);
+        // setImage(null);
+        // bottomDown();
+        // props.navigation.navigate("Profile");
     };
 
     return (
@@ -306,6 +332,11 @@ function addEvent(props) {
                             <Text>Set Location</Text>
                         </Pressable>
                     </View>
+                    <View style={styles.bottomPrivacy}>
+                        <Ionicons name="location" size={26} color="black" />
+                        <Text style={styles.optionsLabel}>Subject</Text>
+                        <TextInput style={{marginLeft:20}} placeholder="E.g. Park Walking" value={subject} onChangeText={(text)=>setSubject(text)} />
+                    </View>
                     <View
                         style={[
                             styles.bottomPrivacy,
@@ -313,6 +344,7 @@ function addEvent(props) {
                         ]}
                     >
                         <Pressable
+                            onPress={() => createEvent()}
                             style={[
                                 styles.publicityButton,
                                 {
@@ -370,7 +402,12 @@ function addEvent(props) {
     );
 }
 
-export default addEvent;
+const mapStateToProps = (state) => {
+    return {
+        store: state,
+    };
+};
+export default connect(mapStateToProps)(addEvent);
 const styles = StyleSheet.create({
     conteiner: {
         flex: 1,

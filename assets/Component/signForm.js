@@ -14,7 +14,7 @@ function signForm(props) {
     const [password, setPassword] = useState(null);
     const dispatch = useDispatch();
     const signUp = async () => {
-        fetch("http://192.168.1.104:3000/api/auth/register", {
+        fetch("http://192.168.1.106:3000/api/auth/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -34,7 +34,7 @@ function signForm(props) {
                             type: "SET_TOKEN",
                             payload: { token: res.token },
                         });
-                        return props.navigation.replace("HomeTabStack");
+                        return props.navigation.replace("Loading");
                     } catch (e) {
                         Alert.alert("err");
                     }

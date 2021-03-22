@@ -14,7 +14,7 @@ function loginForm(props) {
     const [password, setPassword] = useState(null);
     const dispatch = useDispatch();
     const login = async () => {
-        fetch("http://192.168.1.104:3000/api/auth/login", {
+        fetch("http://192.168.1.106:3000/api/auth/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -33,7 +33,7 @@ function loginForm(props) {
                             type: "SET_TOKEN",
                             payload: { token: res.token },
                         });
-                        return props.navigation.replace("HomeTabStack");
+                        return props.navigation.replace("Loading");
                     } catch (e) {
                         Alert.alert("err");
                     }

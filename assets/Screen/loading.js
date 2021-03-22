@@ -15,11 +15,33 @@ function loading(props) {
                     return props.navigation.replace("Register");
                 }
                 dispatch({ type: "SET_TOKEN", payload: { token: value } });
-                props.navigation.replace("HomeTabStack");
+                return value
+            })
+            .then((value)=>{
+                if(value) getUserInfo(value)
             })
             .catch((e) => console.log(e));
     }, []);
 
+    const getUserInfo = async (value) => {
+            
+            fetch("http://192.168.1.106:3000/api/auth/me", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization":`Bearer ${value}`
+                },
+                
+            })
+                .then((res) => res.json())
+                .then((res)=>{
+                    dispatch({ type: "SET_USER", payload: { user: res } });
+                })
+                .then(()=>props.navigation.replace("HomeTabStack"))
+                .catch((e) => console.log(e))
+                .done();
+        
+    }
     const getToken = async () => {
         try {
             const token = await AsyncStorage.getItem("Store:token");

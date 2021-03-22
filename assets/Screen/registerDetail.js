@@ -67,7 +67,7 @@ function registerDetail(props) {
         const form = new FormData();
         form.append("avatar", photo);
 
-        fetch("http://192.168.1.104:3000/api/auth/me", {
+        fetch("http://192.168.1.106:3000/api/auth/me", {
             method: "PATCH",
             headers: {
                 "Content-Type": "multipart/form-data",

@@ -28,7 +28,7 @@ function home(props) {
                     <Text
                         style={{ marginLeft: 10, fontSize: 18, opacity: 0.5 }}
                     >
-                        Public
+                        Groups
                     </Text>
                 </Pressable>
             </View>
